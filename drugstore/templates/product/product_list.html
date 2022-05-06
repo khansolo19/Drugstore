@@ -9,16 +9,16 @@
 {% block content %}
   <div id="sidebar">
     <h3>Categories</h3>
-    <a href="{% url 'shop:product_list' %}?-price=sort">
+    <a href="{% url 'drugstore:product_list' %}?-price=sort">
       <button class="btn btn-outline-primary">Expensive</button>
     </a>
-    <a href="{% url 'shop:product_list' %}?price=sort">
+    <a href="{% url 'drugstore:product_list' %}?price=sort">
       <button class="btn btn-outline-primary">Low</button>
     </a>
     
     <ul style="margin-top: 10px;">
       <li {% if not category %}class="selected"{% endif %}>
-        <a href="{% url 'shop:product_list' %}">All</a>
+        <a href="{% url 'drugstore:product_list' %}">All</a>
       </li>
       {% for cat in categories %}
         <li {% if category.slug == cat.slug %}class="selected"{% endif %}>

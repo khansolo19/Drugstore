@@ -22,7 +22,7 @@
     {% if request.user.is_staff %}
       <div class="d-flex justify-content-between total font-weight-bold mt-4">
         <button type="button" class="btn btn-success">Update</button>
-        <a href="{% url 'shop:delete_product' product.slug %}"><button type="button" class="btn btn-danger">Delete</button></a>
+        <a href="{% url 'drugstore:delete_product' product.slug %}"><button type="button" class="btn btn-danger">Delete</button></a>
       </div>
     {% endif %}
   </div>
