@@ -37,6 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # custom app
+    'drugstore',
+    'cart',
+    'order',
+    'account'
 ]
 
 MIDDLEWARE = [
@@ -127,3 +133,23 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+# custom settings
+PAGINATOR_NUM = 4
+CART_SESSION_ID = 'cart'
+AUTH_USER_MODEL = 'account.MyUser'
+
+# send email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = config('EMAIL_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_PASSWORD')
+
+# redirect
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/account/login/'
+LOGOUT_REDIRECT_URL = '/'
