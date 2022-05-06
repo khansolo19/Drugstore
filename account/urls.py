@@ -9,3 +9,4 @@ urlpatterns = [
     path('activate/<str:activation_code>/', activate, name='activate'),
     path('logout/', LogoutView.as_view(), name='logout'),
 ]
+  
