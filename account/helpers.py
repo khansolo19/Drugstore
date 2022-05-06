@@ -9,6 +9,6 @@ http://127.0.0.1:8000/account/activate/{user.activation_code}
     send_mail(
         'Активация аккаунта',
         message,
-        'shop@makers.com',
+        'drug@store.com',
         [user.email, ]
     )
