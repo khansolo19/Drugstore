@@ -7,7 +7,7 @@ from django.views.decorators.http import require_http_methods
 
 from cart.forms import CartAddProductForm
 from cart.helpers import Cart
-from shop.models import Product
+from drugstore.models import Product
 
 
 @require_http_methods(['POST'])
