@@ -7,38 +7,38 @@
 {% endblock %}
 
 {% block content %}
-  <div id="sidebar">
-    <h3>Categories</h3>
-    <a href="{% url 'drugstore:product_list' %}?-price=sort">
-      <button class="btn btn-outline-primary">Expensive</button>
-    </a>
-    <a href="{% url 'drugstore:product_list' %}?price=sort">
-      <button class="btn btn-outline-primary">Low</button>
-    </a>
-    
-    <ul style="margin-top: 10px;">
-      <li {% if not category %}class="selected"{% endif %}>
-        <a href="{% url 'drugstore:product_list' %}">All</a>
-      </li>
-      {% for cat in categories %}
-        <li {% if category.slug == cat.slug %}class="selected"{% endif %}>
-          <a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
-    <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
-  <div id="main" class="product-list">
-    {% for product in products %}
-      <div class="item">
-        <a href="{{ product.get_absolute_url }}">
-          <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
-        </a>
-        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
-        ${{ product.price }}
-      </div>
-    {% endfor %}
-  </div>
+	<section id="banner">
+		<div class="content">
+				{% for product in products %}
+				  <div class="item">
+					<a href="{{ product.get_absolute_url }}">
+					  <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" width="400" height="400">
+					</a>
+					<a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br>
+					${{ product.price }}
+				  </div>
+				{% endfor %}
+		</div>
+	</section>
 
+{% if products %}
+<div class="pagination">
+    <span class="step-links">
+        {% if products.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ products.previous_page_number }}">previous</a>
+        {% endif %}
 
+        <span class="current">
+            Page {{ products.number }} of {{ products.paginator.num_pages }}.
+        </span>
+
+        {% if products.has_next %}
+            <a href="?page={{ products.next_page_number }}">next</a>
+            <a href="?page={{ products.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endif %}
 {% endblock %}
+

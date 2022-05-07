@@ -63,18 +63,18 @@ def get_product_list(request, category_slug=None):
         context
     )
 
+# def get_elements(request):
+#     return render(request, 'product/product_detail.html')
 
 def get_product_detail(request, product_slug):
     """Детализация продукта
     """
+    categories = Category.objects.all()
     product = get_object_or_404(Product, slug=product_slug)
     cart_product_form = CartAddProductForm()
-    context = {
-        'product': product,
-        'cart_product_form': cart_product_form
-    }
+
     return render(
-        request, 'product/product_detail.html', context
+        request, 'product/product_detail.html', locals()
     )
 
 
@@ -87,6 +87,16 @@ def create_product(request):
             return redirect(product.get_absolute_url())
     else:
         form = ProductForm()
+
+    return render(request, 'product/create_product.html', {'product_form': form})
+
+def update_product(request, product_slug):
+    obj = get_object_or_404(Product, slug=product_slug)
+    form = ProductForm(request.POST or None, request.FILES or None, instance=obj)
+    if form.is_valid():
+        product = form.save()
+        # product = Product.objects.create(**form.cleaned_data)
+        return redirect(product.get_absolute_url())
 
     return render(request, 'product/create_product.html', {'product_form': form})
 

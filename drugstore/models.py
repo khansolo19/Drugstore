@@ -50,3 +50,5 @@ class Product(models.Model):
     def save(self):
         self.slug = self.name.lower().replace(" ", '-')
         return super().save()
+
+
