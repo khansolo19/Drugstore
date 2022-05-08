@@ -63,8 +63,6 @@ def get_product_list(request, category_slug=None):
         context
     )
 
-# def get_elements(request):
-#     return render(request, 'product/product_detail.html')
 
 def get_product_detail(request, product_slug):
     """Детализация продукта
@@ -90,6 +88,7 @@ def create_product(request):
 
     return render(request, 'product/create_product.html', {'product_form': form})
 
+
 def update_product(request, product_slug):
     obj = get_object_or_404(Product, slug=product_slug)
     form = ProductForm(request.POST or None, request.FILES or None, instance=obj)
@@ -98,7 +97,8 @@ def update_product(request, product_slug):
         # product = Product.objects.create(**form.cleaned_data)
         return redirect(product.get_absolute_url())
 
-    return render(request, 'product/update.html', {'product_form': form})
+    return render(request, 'product/update_product.html', {'product_form': form})
+
 
 
 def delete_product(request, product_slug):

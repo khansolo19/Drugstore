@@ -12,3 +12,9 @@ class ProductForm(ModelForm):
         if Product.objects.filter(slug=slug).exists():
             raise ValidationError('Product with such name already exists!')
         return self.cleaned_data
+
+
+# class CommentForm(ModelForm):
+#     class Meta:
+#         model = Comment
+#         fields = ('text',)

@@ -52,3 +52,16 @@ class Product(models.Model):
         return super().save()
 
 
+# class Comment(models.Model):
+#     class Meta:
+#         db_table = 'comments'
+#         verbose_name = 'Комментарий'
+#         verbose_name_plural = 'Комментарии'
+#
+#     user = models.ForeignKey('myuser.User', related_name='comment', on_delete=models.CASCADE, blank=True)
+#     video = models.ForeignKey(Video, related_name='comment', on_delete=models.CASCADE, blank=True)
+#     text = models.TextField('Текст комментария', max_length=500)
+#     create_at = models.DateTimeField(auto_now_add=True)
+#     moder = models.BooleanField(default=False)
+
+
