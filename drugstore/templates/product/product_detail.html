@@ -19,6 +19,20 @@
         {% csrf_token %}
         <input type="submit" value="Add to cart">
     </form>
+	  <div>
+	  <h3>Comments {{ comment.count }}</h3>
+              {% for comm in comment %}
+              {{ comm.user }} -- {{ comm.create_at}} <br>
+              {{ comm.text }} <br><br>
+              {% endfor %}
+              <p>
+              <form action="" method="post">
+                  {% csrf_token %}
+                  {{form}}
+                  <input type="submit" value="Send">
+              </form>
+                </p>
+	  </div>
     {% if request.user.is_staff %}
       <div class="d-flex justify-content-between total font-weight-bold mt-4">
 		  <a href="{% url 'drugstore:update_product' product.slug %}"><button type="button" class="btn btn-success">Update</button></a>

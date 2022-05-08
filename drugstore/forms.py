@@ -1,5 +1,5 @@
 from django.forms import ModelForm, ValidationError
-from .models import Product
+from .models import Product, Comment
 
 
 class ProductForm(ModelForm):
@@ -14,7 +14,7 @@ class ProductForm(ModelForm):
         return self.cleaned_data
 
 
-# class CommentForm(ModelForm):
-#     class Meta:
-#         model = Comment
-#         fields = ('text',)
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('text',)

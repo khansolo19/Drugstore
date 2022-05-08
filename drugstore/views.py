@@ -7,7 +7,8 @@ from cart.forms import CartAddProductForm
 from .forms import ProductForm
 from .helpers import product_list_filter_sort
 from .models import Category, Product
-
+from .models import Comment
+from .forms import CommentForm
 
 def search_product(request):
     category = None
@@ -70,6 +71,16 @@ def get_product_detail(request, product_slug):
     categories = Category.objects.all()
     product = get_object_or_404(Product, slug=product_slug)
     cart_product_form = CartAddProductForm()
+    comment = Comment.objects.filter(product=product)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comm = form.save(commit=False)
+            comm.user = request.user
+            comm.product = product
+            comm.save()
+    else:
+        form = CommentForm()
 
     return render(
         request, 'product/product_detail.html', locals()
@@ -104,3 +115,5 @@ def update_product(request, product_slug):
 def delete_product(request, product_slug):
     Product.objects.get(slug=product_slug).delete()
     return redirect('/')
+
+
