@@ -23,8 +23,7 @@
 							<!-- Header -->
 								<header id="header">
 									<a href="/" class="logo"><strong>DRUG STORE</strong></a>
-									<a href="{% url 'drugstore:product_list' %}?-price=sort">Expensive</a>
-									<a href="{% url 'drugstore:product_list' %}?price=sort">Low</a>
+									{%block content2 %} {% endblock %}
 									<ul class="icons">
 										<li><a href="https://twitter.com/" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
 										<li><a href="https://www.facebook.com/" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
@@ -47,7 +46,7 @@
 						<div class="inner">
 							<ul style="list-style:none;display:flex;flex-direction:column;justify-content: space-around;height: 35vh;">
 								<li>
-									<a href="/" class="navbar-brand">DRUG STOR</a>
+									<a href="/" class="navbar-brand">DRUGSTORE</a>
 								</li>
 								{% if request.user.is_staff %}
 								<li>

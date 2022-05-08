@@ -5,7 +5,10 @@
 {% block title %}
   {% if category %}{{ category.name }}{% else %}Products{% endif %}
 {% endblock %}
-
+{%block content2 %} 
+<a href="{% url 'drugstore:product_list' %}?-price=sort">Expensive</a>
+<a href="{% url 'drugstore:product_list' %}?price=sort">Low</a>
+{% endblock %}
 {% block content %}
 	<section id="banner">
 		<div class="content">

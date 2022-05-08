@@ -10,6 +10,11 @@
   <div class="product-detail">
     <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" width="400" height="400">
     <h1>{{ product.name }}</h1>
+    <form action="{% url 'like_product' product.id" method="POST">
+      {% csrf_token %}
+      {{ product.likes }}
+      <button type="submit" name="product_id" value="{{ product.id }}" >Like</button>
+    </form>
     <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
     <p class="price">${{ product.price }}</p>
     {{ product.description|linebreaks }}

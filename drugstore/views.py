@@ -1,3 +1,5 @@
+from audioop import reverse
+from math import prod
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.db.models import Q
@@ -116,4 +118,8 @@ def delete_product(request, product_slug):
     Product.objects.get(slug=product_slug).delete()
     return redirect('/')
 
+def like(request, id):
+    product = get_object_or_404(Product, id=request.POST.get('product_id'))
+    product.likes.add(request.user)
+    return redirect(request, 'product/product_detail.html')
 
