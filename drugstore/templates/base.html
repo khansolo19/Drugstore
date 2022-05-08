@@ -23,6 +23,8 @@
 							<!-- Header -->
 								<header id="header">
 									<a href="/" class="logo"><strong>DRUG STORE</strong></a>
+									<a href="{% url 'drugstore:product_list' %}?-price=sort">Expensive</a>
+									<a href="{% url 'drugstore:product_list' %}?price=sort">Low</a>
 									<ul class="icons">
 										<li><a href="https://twitter.com/" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
 										<li><a href="https://www.facebook.com/" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
@@ -82,6 +84,9 @@
 									<a href="/account/login"><i class="fa-solid fa-user-check"></i> Login</a>
 								</li>
 								{% endif %}
+
+
+
 								<form class="d-flex" action="{% url 'drugstore:search' %}" style="display:flex;align-items:center">
 									<input class="form-control me-2 mr-2" name="search" type="search" placeholder="Search" aria-label="Search">
 									<button type="submit">Search</button>
