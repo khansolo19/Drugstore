@@ -10,20 +10,17 @@
   <div class="product-detail">
     <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" width="400" height="400">
     <h1>{{ product.name }}</h1>
-    <form action="{% url 'like_product' product.id" method="POST">
-      {% csrf_token %}
-      {{ product.likes }}
-      <button type="submit" name="product_id" value="{{ product.id }}" >Like</button>
-    </form>
     <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
     <p class="price">${{ product.price }}</p>
     {{ product.description|linebreaks }}
-
+    {% if user.is_authenticated %}
     <form action="{% url 'cart:cart_add' product.id %}" method="post">
         {{ cart_product_form }}
         {% csrf_token %}
         <input type="submit" value="Add to cart">
     </form>
+    {% endif %}
+    {% if user.is_authenticated %}
 	  <div>
 	  <h3>Comments {{ comment.count }}</h3>
               {% for comm in comment %}
@@ -38,6 +35,7 @@
               </form>
                 </p>
 	  </div>
+    {% endif %}
     {% if request.user.is_staff %}
       <div class="d-flex justify-content-between total font-weight-bold mt-4">
 		  <a href="{% url 'drugstore:update_product' product.slug %}"><button type="button" class="btn btn-success">Update</button></a>

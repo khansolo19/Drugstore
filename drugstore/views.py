@@ -118,8 +118,5 @@ def delete_product(request, product_slug):
     Product.objects.get(slug=product_slug).delete()
     return redirect('/')
 
-def like(request, id):
-    product = get_object_or_404(Product, id=request.POST.get('product_id'))
-    product.likes.add(request.user)
-    return redirect(request, 'product/product_detail.html')
+
 

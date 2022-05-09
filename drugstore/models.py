@@ -35,7 +35,6 @@ class Product(models.Model):
     available = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    likes = models.ManyToManyField(MyUser, related_name='products_likes',blank=True)
 
     class Meta:
         ordering = ('name', )
