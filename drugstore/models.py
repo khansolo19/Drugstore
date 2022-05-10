@@ -62,7 +62,7 @@ class Comment(models.Model):
 
     user = models.ForeignKey('account.MyUser', related_name='comment', on_delete=models.CASCADE, blank=True)
     product = models.ForeignKey(Product, related_name='comment', on_delete=models.CASCADE, blank=True)
-    text = models.TextField('Текст комментария', max_length=500)
+    text = models.TextField('Enter comment:', max_length=500)
     create_at = models.DateTimeField(auto_now_add=True)
     moder = models.BooleanField(default=False)
 
