@@ -118,8 +118,8 @@ def update_product(request, product_slug):
 
 def delete_product(request, product_slug):
     p = Product.objects.get(slug=product_slug)
-    Cart(request).remove(p)
-    p.delete()
+    Cart(request).remove(p) 
+    p.delete() 
     return redirect('/')
 
 
