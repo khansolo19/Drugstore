@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.conf import settings
 
 from cart.forms import CartAddProductForm
+from cart.helpers import Cart
 from .forms import ProductForm
 from .helpers import product_list_filter_sort
 from .models import Category, Product, Like
@@ -117,9 +118,10 @@ def update_product(request, product_slug):
 
 
 def delete_product(request, product_slug):
-    Product.objects.get(slug=product_slug).delete()
+    p = Product.objects.get(slug=product_slug)
+    Cart(request).remove(p)
+    p.delete()
     return redirect('/')
-
 
 
 def like_product(request, id):
