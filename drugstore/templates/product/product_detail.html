@@ -1,0 +1,54 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  {{ product.name }}
+{% endblock %}
+
+{% block content %}
+  <div class="product-detail">
+    <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" width="400" height="400">
+    <h1>{{ product.name }}</h1>
+    <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
+    <p class="price">${{ product.price }}</p>
+    {{ product.description|linebreaks }}
+    <form action="{% url 'drugstore:product_like_url' product.id %}" method="POST" >
+      {% if request.user.is_authenticated %}
+      {% csrf_token %}
+        <button type="submit" name="product_id" value="{{ product.id }}">Like</button>
+      {% endif %}
+        <p>Likes: {{likes}}</p>
+    </form>
+    {% if user.is_authenticated %}
+    <form action="{% url 'cart:cart_add' product.id %}" method="post">
+        {{ cart_product_form }}
+        {% csrf_token %}
+        <input type="submit" value="Add to cart">
+    </form>
+    {% endif %}
+    {% if user.is_authenticated %}
+	  <div>
+	  <h3>Comments {{ comment.count }}</h3>
+              {% for comm in comment %}
+              {{ comm.user }} -- {{ comm.create_at}} <br>
+              {{ comm.text }} <br><br>
+              {% endfor %}
+              <p>
+              <form action="" method="post">
+                  {% csrf_token %}
+                  {{form}}
+                  <input type="submit" value="Send">
+              </form>
+                </p>
+	  </div>
+    {% endif %}
+    {% if request.user.is_staff %}
+      <div class="d-flex justify-content-between total font-weight-bold mt-4">
+		  <a href="{% url 'drugstore:update_product' product.slug %}"><button type="button" class="btn btn-success">Update</button></a>
+        <a href="{% url 'drugstore:delete_product' product.slug %}"><button type="button" class="btn btn-danger">Delete</button></a>
+      </div>
+    {% endif %}
+  </div>
+
+{% endblock %}

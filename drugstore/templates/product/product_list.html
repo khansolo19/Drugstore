@@ -1,0 +1,47 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  {% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+{%block content2 %} 
+<a href="{% url 'drugstore:product_list' %}?-price=sort">Expensive</a>
+<a href="{% url 'drugstore:product_list' %}?price=sort">Low</a>
+{% endblock %}
+{% block content %}
+	<section id="banner">
+		<div class="content">
+				{% for product in products %}
+				  <div class="item">
+					<a href="{{ product.get_absolute_url }}">
+					  <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}" width="200" height="200">
+					</a><br>
+					<a href="{{ product.get_absolute_url }}">{{ product.name }}</a><br><br>
+					${{ product.price }}
+				  </div>
+				{% endfor %}
+		</div>
+	</section>
+
+{% if products %}
+<div class="pagination">
+    <span class="step-links">
+        {% if products.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ products.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ products.number }} of {{ products.paginator.num_pages }}.
+        </span>
+
+        {% if products.has_next %}
+            <a href="?page={{ products.next_page_number }}">next</a>
+            <a href="?page={{ products.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endif %}
+{% endblock %}
+
