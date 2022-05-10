@@ -143,7 +143,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # custom settings
-PAGINATOR_NUM = 1
+PAGINATOR_NUM = 2
 CART_SESSION_ID = 'cart'
 AUTH_USER_MODEL = 'account.MyUser'
 

@@ -1,10 +1,9 @@
-from audioop import reverse
-from math import prod
+from unicodedata import category
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.conf import settings
-
+from django.http import HttpResponse
 from cart.forms import CartAddProductForm
 from cart.helpers import Cart
 from .forms import ProductForm
@@ -131,3 +130,18 @@ def like_product(request, id):
     else:
         Like.objects.create(user=request.user, product=product)
     return redirect('drugstore:product_details', product.slug)
+
+def write_db(request):
+    import csv
+    import os
+    open('db.csv', 'w').close()
+    products = Product.objects.all()
+    with open('db.csv', 'w') as f:
+        writer = csv.writer(f, delimiter=',')
+        writer.writerow(('product_id', 'category', 'name', 'price'))
+        for product in products:
+            writer.writerow((product.id, product.category, product.name, product.price))
+    with open('db.csv') as f:
+        db = f.read()
+    os.remove('db.csv')
+    return HttpResponse(db, content_type='application/csv')
