@@ -13,6 +13,13 @@
     <h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
     <p class="price">${{ product.price }}</p>
     {{ product.description|linebreaks }}
+    <form action="{% url 'drugstore:product_like_url' product.id %}" method="POST" >
+      {% if request.user.is_authenticated %}
+      {% csrf_token %}
+        <button type="submit" name="product_id" value="{{ product.id }}">Like</button>
+      {% endif %}
+        <p>Likes: {{likes}}</p>
+    </form>
     {% if user.is_authenticated %}
     <form action="{% url 'cart:cart_add' product.id %}" method="post">
         {{ cart_product_form }}

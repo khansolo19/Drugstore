@@ -8,7 +8,7 @@ from django.conf import settings
 from cart.forms import CartAddProductForm
 from .forms import ProductForm
 from .helpers import product_list_filter_sort
-from .models import Category, Product
+from .models import Category, Product, Like
 from .models import Comment
 from .forms import CommentForm
 
@@ -41,6 +41,7 @@ def get_product_list(request, category_slug=None):
     category = None
     categories = Category.objects.all()
     products = Product.objects.filter(available=True).order_by('-created_at')
+    
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
@@ -74,6 +75,7 @@ def get_product_detail(request, product_slug):
     product = get_object_or_404(Product, slug=product_slug)
     cart_product_form = CartAddProductForm()
     comment = Comment.objects.filter(product=product)
+    likes = product.likes.all().count()
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -120,3 +122,10 @@ def delete_product(request, product_slug):
 
 
 
+def like_product(request, id):
+    product = get_object_or_404(Product, id=request.POST.get('product_id'))
+    if Like.objects.filter(user=request.user, product=product).exists():
+        Like.objects.get(user=request.user, product=product).delete()
+    else:
+        Like.objects.create(user=request.user, product=product)
+    return redirect('drugstore:product_details', product.slug)

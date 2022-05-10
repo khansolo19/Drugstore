@@ -66,4 +66,10 @@ class Comment(models.Model):
     create_at = models.DateTimeField(auto_now_add=True)
     moder = models.BooleanField(default=False)
 
+class Like(models.Model):
+    user = models.ForeignKey(MyUser, related_name='likes', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='likes', on_delete=models.CASCADE)
 
+
+    def str(self):
+        return f'{self.user}:{self.product.name}'
